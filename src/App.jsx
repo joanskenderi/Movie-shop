@@ -1,11 +1,11 @@
-import './App.css';
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 
-function App() {
+const App = () => {
   return (
     <div>
       <Routes>
@@ -16,6 +16,6 @@ function App() {
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
