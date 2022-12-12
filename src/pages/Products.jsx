@@ -11,19 +11,19 @@ const Products = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_KEY = "api_key=3e52e2f5350ae60de5e2fc58e818d2a0";
   const BASE_URL = "https://api.themoviedb.org/3";
+  const API_KEY = "api_key=3e52e2f5350ae60de5e2fc58e818d2a0";
 
   useEffect(() => {
     const API_URL = `${BASE_URL}/discover/movie/?page=${page}&certification_country=US&certification=R&sort_by=vote_average.desc&${API_KEY}`;
 
     axios
       .get(API_URL)
-      .then((resp) => {
-        setMovies(resp.data.results);
+      .then((res) => {
+        setMovies(res.data.results);
         setLoading(false);
       })
-      .catch((e) => console.log(e));
+      .catch((err) => console.log(err));
   }, [page]);
 
   const prevPage = (e) => {

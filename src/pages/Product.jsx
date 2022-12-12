@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -9,29 +8,29 @@ import noimage from "../assets/no-image.png";
 const Product = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState();
-  const [cartUpdated, setCartUpdated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [cartUpdated, setCartUpdated] = useState(false);
 
-  const API_KEY = "api_key=3e52e2f5350ae60de5e2fc58e818d2a0";
   const BASE_URL = "https://api.themoviedb.org/3";
+  const API_KEY = "api_key=3e52e2f5350ae60de5e2fc58e818d2a0";
   const API_URL = `${BASE_URL}/movie/${id}?${API_KEY}`;
 
   useEffect(() => {
     axios
       .get(API_URL)
-      .then((resp) => {
-        setMovie(resp.data);
+      .then((res) => {
+        setMovie(res.data);
         setLoading(false);
       })
-      .catch((e) => console.log(e));
+      .catch((err) => console.log(err));
   }, []);
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    let qty = Array.from(e.target.elements)[0].value;
+    let quantity = Array.from(e.target.elements)[0].value;
 
-    if (qty >= 1) {
+    if (quantity >= 1) {
       let cart_items =
         localStorage.getItem("cart") === null
           ? []
@@ -42,7 +41,8 @@ const Product = () => {
         for (let i in cart_items) {
           if (cart_items[i].id === id) {
             found = true;
-            cart_items[i].qty = parseInt(cart_items[i].qty) + parseInt(qty);
+            cart_items[i].quantity =
+              parseInt(cart_items[i].quantity) + parseInt(quantity);
           }
         }
 
@@ -53,7 +53,7 @@ const Product = () => {
             "cart",
             JSON.stringify([
               ...cart_items,
-              { id: id, title: movie.title, qty: qty },
+              { id: id, title: movie.title, quantity: quantity },
             ])
           );
         }
@@ -61,7 +61,7 @@ const Product = () => {
         const item = {
           id: movie.id,
           title: movie.title,
-          qty: qty,
+          quantity: quantity,
         };
 
         localStorage.setItem("cart", JSON.stringify([item]));
@@ -70,7 +70,7 @@ const Product = () => {
       setCartUpdated(true);
       Array.from(e.target.elements)[0].value = 0;
     }
-  }
+  };
 
   return (
     <>
@@ -112,7 +112,7 @@ const Product = () => {
                           </td>
                         </tr>
                         <tr>
-                          <td>Genders</td>
+                          <td>Genres</td>
                           <td>{movie.release_date}</td>
                         </tr>
                       </tbody>
@@ -120,7 +120,7 @@ const Product = () => {
                     <br />
                     <h4>Price: {(movie.id / 10000).toFixed(2)} &euro;</h4>
                     <form className="add-to-cart" onSubmit={handleSubmit}>
-                      <input type="number" name="qty" min="0" max="10" />
+                      <input type="number" name="quantity" min="0" max="10" />
                       <input type="hidden" name="id" value={movie.id} />
                       <button type="submit">Add to cart</button>
                     </form>

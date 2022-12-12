@@ -1,13 +1,12 @@
 import React from "react";
-import Nav from "./Nav";
 import { Link } from "react-router-dom";
+import Nav from "./Nav";
 
 const Header = () => {
   return (
     <header>
       <div className="container-row">
         <Link to="/">
-          {/* IMDB Logo (svg) */}
           <svg
             id="home_img"
             className="ipc-logo"

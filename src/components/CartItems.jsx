@@ -9,7 +9,7 @@ const CartItems = () => {
         ? []
         : JSON.parse(localStorage.getItem("cart"))
     );
-  }, []); /* the array is used to set dependencies */
+  }, []);
 
   const deleteCartItem = (index) => {
     const cart_items =
@@ -33,14 +33,14 @@ const CartItems = () => {
             <tr>
               <td>#</td>
               <td>Title</td>
-              <td>Qty</td>
+              <td>Quantity</td>
               <td></td>
             </tr>
             {items.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.title}</td>
-                <td>{item.qty}</td>
+                <td>{item.quantity}</td>
                 <td>
                   <button onClick={() => deleteCartItem(index)}>Delete</button>
                 </td>

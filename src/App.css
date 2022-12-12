@@ -22,6 +22,14 @@ body {
   border-radius: 4px;
 }
 
+.bg-primary {
+  background-color: #f3f3f3;
+}
+
+.p-60 {
+  padding: 60px 0px;
+}
+
 table,
 table td {
   border: 1px solid #ccc;
@@ -54,14 +62,6 @@ table td {
   color: black;
   background-color: white;
   border: 1px solid black;
-}
-
-.bg-primary {
-  background-color: #f3f3f3;
-}
-
-.p-60 {
-  padding: 60px 0px;
 }
 
 header {
